@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: domain-core-modelhub
+server:
+  port: ${SERVER_PORT:18123}
+firefly:
+  modelhub:
+    record:
+      adapter: sandbox
+      core-base-url: http://localhost:8080
