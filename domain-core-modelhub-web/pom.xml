@@ -7,6 +7,7 @@
         <version>26.10.4</version>
     </parent>
     <artifactId>domain-core-modelhub-web</artifactId>
+    <name>domain-core-modelhub-web</name>
     <dependencies>
         <dependency>
             <groupId>io.fireflysoftware</groupId>
