@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Firefly Software Foundation
+ * Copyright 2026 Firefly Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,8 @@
  * limitations under the License.
  */
 
-package io.fireflysoftware.domain.modelhub;
-
-import reactor.core.publisher.Mono;
-
+package io.fireflysoftware.domain.modelhub.core.record.commands;
+import io.fireflysoftware.domain.modelhub.core.record.StoredRecord;
+import org.fireflyframework.cqrs.command.Command;
 import java.util.UUID;
-
-/** Reads the core through its SDK when the live adapter is selected. Sandbox does not open a socket. */
-public interface CorePort {
-    Mono<ModelRecordView> read(UUID id);
-}
+public record LoadRecordCommand(UUID id) implements Command<StoredRecord> {}

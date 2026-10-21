@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Firefly Software Foundation
+ * Copyright 2026 Firefly Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,9 @@
  */
 
 package io.fireflysoftware.domain.modelhub.web;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 @SpringBootApplication(scanBasePackages = "io.fireflysoftware.domain.modelhub")
 public class DomainApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(DomainApplication.class, args);
-    }
+    public static void main(String[] args) { SpringApplication.run(DomainApplication.class, args); }
 }

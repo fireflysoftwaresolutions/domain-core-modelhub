@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Firefly Software Foundation
+ * Copyright 2026 Firefly Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,25 +14,17 @@
  * limitations under the License.
  */
 
-package io.fireflysoftware.domain.modelhub;
-
-import org.springframework.beans.factory.annotation.Value;
+package io.fireflysoftware.domain.modelhub.core.record;
+import io.fireflysoftware.core.modelhub.sdk.api.DynamicEntityApisApi;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 @Configuration
-public class AdapterConfiguration {
+public class RecordAdapterConfiguration {
     @Bean
     @ConditionalOnProperty(prefix = "firefly.modelhub.record", name = "adapter", havingValue = "sandbox", matchIfMissing = true)
-    public CorePort sandboxPort() {
-        return new SandboxAdapter();
-    }
-
+    public RecordPort sandboxRecordPort() { return new SandboxRecordAdapter(); }
     @Bean
     @ConditionalOnProperty(prefix = "firefly.modelhub.record", name = "adapter", havingValue = "core")
-    public CorePort corePort(
-            @Value("${firefly.modelhub.record.core-base-url:http://localhost:8080}") String basePath) {
-        return new SdkAdapter(basePath);
-    }
+    public RecordPort coreRecordPort(DynamicEntityApisApi api) { return new SdkRecordAdapter(api); }
 }
