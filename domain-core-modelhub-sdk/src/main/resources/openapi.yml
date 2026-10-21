@@ -1,10 +1,7 @@
 openapi: 3.0.3
 info:
   title: Domain Model Hub API
-  version: 1.0.0
-  contact:
-    name: Firefly Software Foundation
-    email: dev@fireflysoftware.io
+  version: 26.10.4
 paths:
   /api/v1/records/{id}:
     get:
@@ -17,11 +14,11 @@ paths:
           schema: {type: string, format: uuid}
       responses:
         "200":
-          description: Found
+          description: Record
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RecordView"
+                $ref: "#/components/schemas/ModelRecordView"
     put:
       tags: [Records]
       operationId: update
@@ -35,21 +32,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RecordView"
+              $ref: "#/components/schemas/RecordDraft"
       responses:
         "200":
           description: Updated
-    delete:
-      tags: [Records]
-      operationId: remove
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema: {type: string, format: uuid}
-      responses:
-        "204":
-          description: Removed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StoredRecord"
   /api/v1/records:
     post:
       tags: [Records]
@@ -59,13 +49,17 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RecordView"
+              $ref: "#/components/schemas/RecordDraft"
       responses:
-        "201":
-          description: Created
+        "200":
+          description: Registered
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StoredRecord"
 components:
   schemas:
-    RecordView:
+    ModelRecordView:
       type: object
       properties:
         id:
@@ -73,3 +67,14 @@ components:
           format: uuid
         label:
           type: string
+    RecordDraft:
+      type: object
+      additionalProperties: true
+    StoredRecord:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        body:
+          $ref: "#/components/schemas/RecordDraft"
