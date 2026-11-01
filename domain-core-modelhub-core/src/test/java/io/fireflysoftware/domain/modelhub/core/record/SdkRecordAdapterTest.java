@@ -30,14 +30,14 @@ class SdkRecordAdapterTest {
     @Test void sandboxIsTheDefaultAndDoesNotOpenASocket() {
         new ApplicationContextRunner().withUserConfiguration(RecordAdapterConfiguration.class).run(context -> {
             RecordPort port = context.getBean(RecordPort.class);
-            assertThat(port).isInstanceOf(SandboxRecordAdapter.class);
+            assertThat(port).isInstanceOf(SandboxRecordAdapterImpl.class);
             assertThat(port.read(null).block().label()).isEqualTo("party");
         });
     }
     @Test void corePropertySelectsTheSdkAdapter() {
         new ApplicationContextRunner().withUserConfiguration(RecordAdapterConfiguration.class, RecordClientFactory.class)
                 .withPropertyValues("firefly.modelhub.record.adapter=core")
-                .run(context -> assertThat(context.getBean(RecordPort.class)).isInstanceOf(SdkRecordAdapter.class));
+                .run(context -> assertThat(context.getBean(RecordPort.class)).isInstanceOf(SdkRecordAdapterImpl.class));
     }
     @Test void liveReadCallsTheCoreSdk() {
         UUID id = UUID.randomUUID();
@@ -45,7 +45,7 @@ class SdkRecordAdapterTest {
         VirtualEntityRecordDto dto = mock(VirtualEntityRecordDto.class);
         when(dto.getId()).thenReturn(id);
         when(api.getRecordByIdForEntity("party", id, null)).thenReturn(Mono.just(dto));
-        assertThat(new SdkRecordAdapter(api).read(id).block().id()).isEqualTo(id);
+        assertThat(new SdkRecordAdapterImpl(api).read(id).block().id()).isEqualTo(id);
         verify(api).getRecordByIdForEntity("party", id, null);
     }
 }

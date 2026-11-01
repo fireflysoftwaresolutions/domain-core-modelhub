@@ -20,10 +20,10 @@ import io.fireflysoftware.core.modelhub.sdk.api.DynamicEntityApisApi;
 import reactor.core.publisher.Mono;
 import java.util.Map;
 import java.util.UUID;
-public final class SdkRecordAdapter implements RecordPort {
+public final class SdkRecordAdapterImpl implements RecordPort {
     static final String ENTITY = "party";
     private final DynamicEntityApisApi api;
-    public SdkRecordAdapter(DynamicEntityApisApi api) { this.api = api; }
+    public SdkRecordAdapterImpl(DynamicEntityApisApi api) { this.api = api; }
     @Override public Mono<ModelRecordView> read(UUID id) {
         return api.getRecordByIdForEntity(ENTITY, id, null).map(dto -> new ModelRecordView(dto.getId(), ENTITY));
     }
