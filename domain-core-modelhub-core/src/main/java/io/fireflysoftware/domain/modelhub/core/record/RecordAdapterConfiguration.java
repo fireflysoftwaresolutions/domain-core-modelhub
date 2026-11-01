@@ -23,8 +23,8 @@ import org.springframework.context.annotation.Configuration;
 public class RecordAdapterConfiguration {
     @Bean
     @ConditionalOnProperty(prefix = "firefly.modelhub.record", name = "adapter", havingValue = "sandbox", matchIfMissing = true)
-    public RecordPort sandboxRecordPort() { return new SandboxRecordAdapter(); }
+    public RecordPort sandboxRecordPort() { return new SandboxRecordAdapterImpl(); }
     @Bean
     @ConditionalOnProperty(prefix = "firefly.modelhub.record", name = "adapter", havingValue = "core")
-    public RecordPort coreRecordPort(DynamicEntityApisApi api) { return new SdkRecordAdapter(api); }
+    public RecordPort coreRecordPort(DynamicEntityApisApi api) { return new SdkRecordAdapterImpl(api); }
 }

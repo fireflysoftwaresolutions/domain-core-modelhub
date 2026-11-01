@@ -27,11 +27,11 @@ import org.fireflyframework.orchestration.saga.engine.StepInputs;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import java.util.UUID;
-@Service
-public class RecordService {
+@Service("recordService")
+public class RecordServiceImpl {
     private final SagaEngine engine;
     private final RecordPort port;
-    public RecordService(SagaEngine engine, RecordPort port) { this.engine = engine; this.port = port; }
+    public RecordServiceImpl(SagaEngine engine, RecordPort port) { this.engine = engine; this.port = port; }
     public Mono<ModelRecordView> read(UUID id) { return port.read(id); }
     public Mono<StoredRecord> register(VirtualEntityRecordDto draft) {
         StepInputs inputs = StepInputs.builder().forStepId(RegisterRecordSaga.STEP, new RegisterRecordCommand(draft)).build();

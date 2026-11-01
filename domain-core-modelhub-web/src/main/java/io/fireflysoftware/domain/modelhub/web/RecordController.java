@@ -17,7 +17,7 @@
 package io.fireflysoftware.domain.modelhub.web;
 import io.fireflysoftware.core.modelhub.model.VirtualEntityRecordDto;
 import io.fireflysoftware.domain.modelhub.core.record.ModelRecordView;
-import io.fireflysoftware.domain.modelhub.core.record.RecordService;
+import io.fireflysoftware.domain.modelhub.core.record.RecordServiceImpl;
 import io.fireflysoftware.domain.modelhub.core.record.StoredRecord;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,8 +31,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/records")
 public class RecordController {
-    private final RecordService service;
-    public RecordController(RecordService service) { this.service = service; }
+    private final RecordServiceImpl service;
+    public RecordController(RecordServiceImpl service) { this.service = service; }
     @GetMapping("/{id}") public Mono<ModelRecordView> read(@PathVariable UUID id) { return service.read(id); }
     @PostMapping public Mono<StoredRecord> create(@RequestBody VirtualEntityRecordDto draft) { return service.register(draft); }
     @PutMapping("/{id}") public Mono<StoredRecord> update(@PathVariable UUID id, @RequestBody VirtualEntityRecordDto draft) { return service.update(id, draft); }

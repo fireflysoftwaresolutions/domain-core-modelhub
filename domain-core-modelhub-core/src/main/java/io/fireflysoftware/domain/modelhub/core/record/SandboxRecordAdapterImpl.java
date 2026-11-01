@@ -19,7 +19,7 @@ import io.fireflysoftware.core.modelhub.model.VirtualEntityRecordDto;
 import reactor.core.publisher.Mono;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-public final class SandboxRecordAdapter implements RecordPort {
+public final class SandboxRecordAdapterImpl implements RecordPort {
     static final String ENTITY = "party";
     private final ConcurrentHashMap<UUID, VirtualEntityRecordDto> rows = new ConcurrentHashMap<>();
     @Override public Mono<ModelRecordView> read(UUID id) {
